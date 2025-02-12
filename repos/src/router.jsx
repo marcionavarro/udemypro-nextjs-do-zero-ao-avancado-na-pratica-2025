@@ -7,7 +7,7 @@ export default function Rotas(){
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Main />} />
-        <Route path='/repositorio/:repositorio' element={<Repositorio />} />
+        <Route path='/repositorio/:repo' element={<Repositorio />} />
       </Routes>
     </BrowserRouter>
   )
