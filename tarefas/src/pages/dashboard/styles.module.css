@@ -117,7 +117,7 @@
   white-space: pre-wrap;
 }
 
-.trashButton {
+.editButton, .trashButton {
   cursor: pointer;
   background: transparent;
   border: 0;

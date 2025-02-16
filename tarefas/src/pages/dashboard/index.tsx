@@ -4,10 +4,11 @@ import Head from 'next/head';
 
 import { getSession } from 'next-auth/react';
 import { Textarea } from '@/components/textarea';
-import { FaShare, FaTrash } from 'react-icons/fa';
+import { FaEdit, FaShare, FaTrash } from 'react-icons/fa';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { addDoc, collection, onSnapshot, orderBy, query, where } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, updateDoc, where } from 'firebase/firestore';
 import { db } from '@/services/firebaseConnection';
+import Link from 'next/link';
 
 interface HomeProps {
     user: {
@@ -27,6 +28,8 @@ export default function Dashboard({ user }: HomeProps) {
     const [input, setInput] = useState('');
     const [publicTask, setPublicTask] = useState(false);
     const [tasks, setTasks] = useState<TasksProps[]>([]);
+    const [editID, setEditID] = useState('');
+
 
     useEffect(() => {
         async function loadTarefas() {
@@ -58,7 +61,6 @@ export default function Dashboard({ user }: HomeProps) {
     }, [user?.email])
 
     function handleChangePublic(event: ChangeEvent<HTMLInputElement>) {
-        console.log(event.target.checked);
         setPublicTask(event.target.checked)
     }
 
@@ -66,6 +68,22 @@ export default function Dashboard({ user }: HomeProps) {
         event.preventDefault();
 
         if (input === '') return;
+
+        if (editID) {
+            try {
+                const tarefaRef = doc(db, "tarefas", editID);
+                await updateDoc(tarefaRef, {
+                    tarefa: input,
+                    public: publicTask
+                });
+                setInput('');
+                setPublicTask(false);
+                setEditID('');
+            } catch (error) {
+                console.error("Erro ao atualizar tarefa:", error);
+            }
+            return;
+        }
 
         try {
             await addDoc(collection(db, "tarefas"), {
@@ -80,6 +98,29 @@ export default function Dashboard({ user }: HomeProps) {
         } catch (error) {
             console.log(error)
         }
+    }
+
+    async function handleShare(id: string) {
+        await navigator.clipboard.writeText(
+            `${process.env.NEXT_PUBLIC_URL}/task/${id}`
+        );
+        alert('URL Copiada com sucesso');
+    }
+
+    function handleEditTask(task: TasksProps) {
+        const { id, tarefa, public: publicTask } = task;
+        setEditID(id);
+        setInput(tarefa);
+        setPublicTask(publicTask);
+    }
+
+    async function handleDeleteTask(id: string) {
+        const docRef = doc(db, "tarefas", id);
+        await deleteDoc(docRef).then(() => {
+            setInput('');
+            setPublicTask(false);
+            setEditID('');
+        });
     }
 
     return (
@@ -125,7 +166,7 @@ export default function Dashboard({ user }: HomeProps) {
                             {task.public && (
                                 <div className={styles.tagContainer}>
                                     <label className={styles.tag}>PUBLICO</label>
-                                    <button className={styles.shareButton}>
+                                    <button className={styles.shareButton} onClick={() => handleShare(task.id)}>
                                         <FaShare
                                             size={22}
                                             color='#3183ff'
@@ -134,10 +175,28 @@ export default function Dashboard({ user }: HomeProps) {
                                 </div>
                             )}
                             <div className={styles.taskContent}>
-                                <p>{task.tarefa}</p>
-                                <button className={styles.trashButton} type='submit'>
-                                    <FaTrash size={22} color='#ea3140' />
-                                </button>
+                                {task.public ? (
+                                    <Link href={`/task/${task.id}`}>{task.tarefa}</Link>
+                                ) : (
+                                    <p>{task.tarefa}</p>
+                                )}
+
+                                <div>
+                                    <button
+                                        className={styles.editButton}
+                                        type='submit'
+                                        onClick={() => handleEditTask(task)}
+                                    >
+                                        <FaEdit size={22} color='#3183ff' />
+                                    </button>
+                                    <button
+                                        className={styles.trashButton}
+                                        type='submit'
+                                        onClick={() => handleDeleteTask(task.id)}
+                                    >
+                                        <FaTrash size={22} color='#ea3140' />
+                                    </button>
+                                </div>
                             </div>
                         </article>
                     ))}
