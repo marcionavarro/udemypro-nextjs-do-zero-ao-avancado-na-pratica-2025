@@ -113,7 +113,7 @@
   width: 100%;
 }
 
-.taskContent p {
+.taskContent p, .taskContent a {
   white-space: pre-wrap;
 }
 
