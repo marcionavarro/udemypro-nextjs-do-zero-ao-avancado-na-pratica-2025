@@ -62,3 +62,38 @@
   cursor: not-allowed;
   background-color: rgba(49, 131, 255, 0.604);
 }
+
+.comment {
+  border: 1px solid #ddd;
+  padding: 0.875rem;
+  border-radius: 0.25rem;
+  margin-bottom: 0.875rem;
+}
+
+.headComment {
+  display: flex;
+  align-items: center;
+}
+
+.commentsLabel {
+  background-color: #CCC;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+}
+.buttonContainer{
+  display: flex;
+  flex: 1;
+  justify-content: end;
+}
+
+.buttonTrash, .editrash {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  margin-left: 0.5rem
+}
+
+.comment p {
+  margin-top: 0.875rem;
+  white-space: pre-wrap;
+}
