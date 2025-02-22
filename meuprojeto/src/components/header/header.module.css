@@ -1,0 +1,17 @@
+.header {
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  border-bottom: 1px solid #fff;
+  padding-bottom: 20px;
+}
+
+.header a{
+  text-decoration: none;
+}
+
+.header a:hover {
+  color: #575757;
+}
