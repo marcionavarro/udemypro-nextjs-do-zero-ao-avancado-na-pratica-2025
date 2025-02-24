@@ -1,0 +1,19 @@
+.owner {
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.ownerShow {
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.ownerShow:hover {
+  background: #fff;
+  color: #000;
+  transition: ease-in-out .3s;
+}

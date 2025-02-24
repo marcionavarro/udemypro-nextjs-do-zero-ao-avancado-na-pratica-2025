@@ -1,3 +1,6 @@
+import { OwnerRepo } from "@/components/owner-repo"
+import styles from './styles.module.css'
+
 interface DataProps {
   id: number
   name: string
@@ -19,7 +22,7 @@ async function delayFetch(url: string, delay: number) {
 async function getData() {
   /* const response = await fetch('https://api.github.com/users/marcionavarro/repos')
   return response.json() */
-  const data = await delayFetch('https://api.github.com/users/marcionavarro/repos', 3500)
+  const data = await delayFetch('https://api.github.com/users/marcionavarro/repos', 0)
   return data
 }
 
@@ -34,9 +37,14 @@ export default async function Home() {
 
       <h3>Meus repostitorios</h3>
       {data.map(item => (
-        <div key={item.id}>
+        <div key={item.id} className={styles.itemRepo}>
           <strong>Repositório: </strong><a>{item.name}</a>
-          <br /> <br />
+          <br />
+          <OwnerRepo 
+            avatar_url={item.owner.avatar_url}
+            name={item.owner.login}
+          />
+          <br />
         </div>
       ))}
     </main>
