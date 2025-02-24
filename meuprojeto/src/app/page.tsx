@@ -15,7 +15,7 @@ interface DataProps {
 
 async function delayFetch(url: string, delay: number) {
   await new Promise(resolve => setTimeout(resolve, delay))
-  const response = await fetch(url)
+  const response = await fetch(url, { next: { revalidate: 120 }})
   return response.json()
 }
 

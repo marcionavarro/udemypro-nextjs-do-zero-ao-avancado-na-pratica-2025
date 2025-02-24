@@ -5,6 +5,7 @@ interface PageDetailProps {
 }
 
 async function getData(id: string) {
+  console.log("🚀 ~ getData ~ id:", id)
   const response = await fetch('https://api.github.com/users/marcionavarro/repos')
   return response.json()
 }
