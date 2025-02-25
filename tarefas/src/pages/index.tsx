@@ -3,7 +3,7 @@ import styles from "@/styles/home.module.css";
 import Image from "next/image";
 import heroImg from "./../../public/assets/hero.png";
 import { GetStaticProps } from "next";
-import { collection, getDoc, getDocs } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/services/firebaseConnection";
 
 interface HomeProps {
