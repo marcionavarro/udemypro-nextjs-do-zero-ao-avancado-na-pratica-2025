@@ -1,0 +1,39 @@
+.submenu {
+  margin: 0 auto;
+  max-width: 1280px;
+  padding: 64px 14px 4px 14px;
+}
+
+.submenuIcon {
+  display: none;
+  gap: 14px;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.ul {
+  display: none;
+  list-style: none;
+  padding: 14px 0;
+
+  li a {
+    background-color: #121212;
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 4px;
+  }
+}
+
+@media(min-width: 768px) {
+  .ul {
+    display: flex;
+  }
+}
+
+@media(max-width: 768px) {
+  .submenuIcon {
+    display: inline-flex;
+  }
+}
