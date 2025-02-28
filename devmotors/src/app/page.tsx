@@ -1,5 +1,6 @@
 import { Container } from "@/componentes/Container";
 import { Hero } from "@/componentes/hero";
+import { Footer } from "@/componentes/home/footer";
 import { Services } from "@/componentes/home/services";
 import { Submenu } from "@/componentes/home/submenu";
 import { getDataHome } from "@/utils/actions/getData";
@@ -21,7 +22,10 @@ export default async function Home() {
       />
       <Container>
         <Services object={object}/>
+        <Footer object={object}/>
       </Container>
+
+
     </main>
   );
 }
