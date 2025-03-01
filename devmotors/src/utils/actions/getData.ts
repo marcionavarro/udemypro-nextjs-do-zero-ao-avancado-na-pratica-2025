@@ -1,3 +1,5 @@
+import { redirect } from "next/navigation"
+
 export async function getDataHome() {
   try {
     let urlCosmic = `${process.env.NEXT_PUBLIC_API_URL}/objects/67c0c634447e7fbe811b33a5`
@@ -52,7 +54,8 @@ export async function getItemBySlug(itemSlug: string) {
 
     return res.json()
   } catch (error) {
-    throw new Error("Failed get item by slug")
+    redirect('/')
+    // throw new Error("Failed get item by slug")
   }
 
 }

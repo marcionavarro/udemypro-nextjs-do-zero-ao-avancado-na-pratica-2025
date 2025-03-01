@@ -5,11 +5,51 @@ import { Hero } from '@/componentes/hero'
 import { Phone } from 'lucide-react'
 import { Container } from '@/componentes/Container'
 import Image from 'next/image'
+import { Metadata } from 'next'
 
-export default async function Page({ params: { slug } }: {
+export async function generateMetadata({ params }: {
+  params: { slug: string }
+}): Promise<Metadata> {
+  try {
+    const { objects }: PostProps = await getItemBySlug(params.slug)
+      .catch(() => {
+        return {
+          title: "DevMotors - Sua oficina especializada",
+          description: "Oficina de carros em Uberlândia",
+        }
+      })
+
+    return {
+      title: `DevMotors - ${objects[0].title}`,
+      description: `${objects[0].metadata.description.text}`,
+      openGraph: {
+        title: `DevMotors - ${objects[0].title}`,
+        images: [`${objects[0].metadata.banner.url}`]
+      },
+      robots: {
+        index: true,
+        follow: true,
+        nocache: true,
+        googleBot: {
+          index: true,
+          follow: true,
+          noimageindex: true,
+        }
+      }
+    }
+  } catch (error) {
+    console.error("Erro ao gerar metadata:", error);
+    return {
+      title: "DevMotors - Sua oficina especializada",
+      description: "Oficina de carros em Uberlândia",
+    }
+  }
+}
+
+export default async function Page({ params }: {
   params: { slug: string }
 }) {
-  const { objects }: PostProps = await getItemBySlug(slug)
+  const { objects }: PostProps = await getItemBySlug(params.slug)
 
   return (
     <>
@@ -38,7 +78,7 @@ export default async function Page({ params: { slug } }: {
           </article>
 
           <div className={styles.bannerAbout}>
-            <Image 
+            <Image
               className={styles.imageAbout}
               alt={objects[0].title}
               quality={100}
