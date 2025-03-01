@@ -26,8 +26,6 @@ export default async function Home() {
         <Services object={object}/>
         <Footer object={object}/>
       </Container>
-
-
     </main>
   );
 }

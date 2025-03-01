@@ -28,6 +28,10 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <Header />
         {children}
+
+        <p style={{textAlign: "center", marginTop: 54, marginBottom: 24 }}>
+        Todos os direitos reservados @{new Date().getFullYear()}
+      </p>
       </body>
     </html>
   );
