@@ -6,7 +6,6 @@ import { FiLoader, FiLock, FiLogOut, FiUser } from "react-icons/fi";
 
 export function Header() {
   const { status, data } = useSession();
-  console.log("🚀 ~ Header ~ data:", data)
 
   async function handleLogin() {
     await signIn();
