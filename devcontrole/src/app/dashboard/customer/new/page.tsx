@@ -22,7 +22,7 @@ export default async function NewCustomer() {
           link="/dashboard"
         />
 
-        <NewCustomerForm />
+        <NewCustomerForm userId={session.user.id}/>
       </Main>
     </Container>
   )
