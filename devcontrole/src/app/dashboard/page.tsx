@@ -19,7 +19,7 @@ export default async function Dashboard() {
         <SubHeader
           title='Chamados'
           linkTitle='Abrir chamado'
-          link='/dashboard/new'
+          link='/dashboard/ticket/new'
         />
         
         <table className="min-w-full my-2">
