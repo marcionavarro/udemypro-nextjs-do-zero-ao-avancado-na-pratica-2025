@@ -3,6 +3,26 @@ import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import prismaClient from '@/lib/prisma';
 
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const customerEmail = searchParams.get("email");
+
+  if (!customerEmail || customerEmail === "") {
+    return NextResponse.json({ error: "Customer not found" }, { status: 400 })
+  }
+
+  try {
+    const customer = await prismaClient.customer.findFirst({
+      where: {
+        email: customerEmail
+      }
+    })
+    return NextResponse.json(customer);
+  } catch (error) {
+    return NextResponse.json({ error: "Customer not found" }, { status: 400 })
+  }
+}
+
 // Rota para cadastrar um cliente
 export async function POST(request: Request) {
   const session = await getServerSession(authOptions);
@@ -55,7 +75,7 @@ export async function DELETE(request: Request) {
     }
   });
 
-  if(findTickets){
+  if (findTickets) {
     return NextResponse.json({
       error: "Voçê não pode deletar um cliente que contem ticket"
     }, {
