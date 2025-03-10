@@ -1,9 +1,11 @@
 'use client'
 
 import { Input } from "@/components/input";
+import { api } from "@/lib/api";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
+import { CustomerDataInfo } from "../../page";
 
 const schema = z.object({
   name: z.string().min(1, "Campo email é obrigatório."),
@@ -12,7 +14,11 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>
 
-export function FormTicket() {
+interface FormTicketProps {
+  customer: CustomerDataInfo
+}
+
+export function FormTicket({ customer }: FormTicketProps) {
   const {
     register,
     handleSubmit,
@@ -22,8 +28,20 @@ export function FormTicket() {
     resolver: zodResolver(schema)
   });
 
+  async function handleRegisterTicket(data: FormData) {
+    const response = await api.post("/api/ticket", {
+      name: data.name,
+      description: data.description,
+      customerId: customer.id
+    });
+    console.log("🚀 ~ handleRegisterTicket ~ response:", response)
+  }
+
   return (
-    <form className="bg-slate-100 mt-6 px-4 py-6 border-1 border-gray-200">
+    <form
+      className="bg-slate-100 mt-6 px-4 py-6 border-1 border-gray-200"
+      onSubmit={handleSubmit(handleRegisterTicket)}
+    >
       <label className="inline-block mb-2 font-medium text-lg">Nome do chamado</label>
       <Input
         type="text"
@@ -35,13 +53,13 @@ export function FormTicket() {
 
       <label className="inline-block my-2 font-medium text-lg">Descreva o problema</label>
       <textarea
-        className="w-full border-2 border-gray-200 rounded-md h-24 resize-none mb-2 px-2"
+        className="w-full border-2 border-gray-200 rounded-md h-24 resize-none px-2"
         placeholder="Descreva o seu problema..."
         id="description"
         {...register("description")}
       ></textarea>
       {errors.description?.message &&
-        <p className="text-red-500 my-2">{errors.description?.message}</p>}
+        <p className="text-red-500 mb-6">{errors.description?.message}</p>}
 
       <button
         type="submit"
