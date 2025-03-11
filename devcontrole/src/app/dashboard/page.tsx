@@ -14,29 +14,25 @@ export default async function Dashboard() {
     redirect('/')
   }
 
-  async function getTicketsByStatus(userId: string, status?: string) {
-    return await prismaClient.ticket.findMany({
-      where: {
-        userId,
-        status
-      },
-      include: {
-        customer: true
-      },
-      orderBy: {
-        created_at: "desc"
+  const tickets = await prismaClient.ticket.findMany({
+    where: {
+      status: "ABERTO",
+      customer: {
+        userId: session.user.id
       }
-    });
-  }
-
-  // const tickets = await getTicketsByStatus(session.user.id);
-  const ticketsOpen = await getTicketsByStatus(session.user.id, 'ABERTO');
-  // const ticketsClosed = await getTicketsByStatus(session.user.id, 'FECHADO');
+    },
+    include: {
+      customer: true
+    },
+    orderBy: {
+      created_at: "desc"
+    }
+  })
 
   return (
     <Container>
       <Main>
-        {ticketsOpen.length <= 0 ? (
+        {tickets.length <= 0 ? (
           <SubHeader
             title='Não existem chamados abertos'
             linkTitle='Abrir chamado'
@@ -60,7 +56,7 @@ export default async function Dashboard() {
                 </tr>
               </thead>
               <tbody>
-                {ticketsOpen.map(ticket => (
+                {tickets.map(ticket => (
                   <TicketItem
                     key={ticket.id}
                     customer={ticket?.customer}

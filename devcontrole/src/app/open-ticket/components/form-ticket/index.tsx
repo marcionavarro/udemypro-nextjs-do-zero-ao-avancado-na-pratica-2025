@@ -34,7 +34,8 @@ export function FormTicket({ customer }: FormTicketProps) {
       description: data.description,
       customerId: customer.id
     });
-    console.log("🚀 ~ handleRegisterTicket ~ response:", response)
+    setValue("name", "");
+    setValue("description", "")
   }
 
   return (
