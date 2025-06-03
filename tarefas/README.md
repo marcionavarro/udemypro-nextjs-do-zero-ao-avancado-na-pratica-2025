@@ -1,40 +1,92 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# 📝 Tarefas+
 
-## Getting Started
+Projeto desenvolvido com [Next.js](https://nextjs.org) (Pages Router), focado em organização de tarefas, autenticação e comentários.
 
-First, run the development server:
+<table style="width: 100%">
+  <tr>
+    <td><img src="image.png"/></td>
+    <td><img src="image-1.png" /></td>
+  </tr>
+  <tr>
+    <td><img src="image-4.png" /></td>
+    <td><img src="image-3.png" /></td>
+  </tr>
+</table>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ Principais Funcionalidades
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- 🔐 **Autenticação:** Utiliza `next-auth` com login via Google.
+- 🗂️ **Cadastro de Tarefas:** Usuários autenticados podem cadastrar tarefas, públicas ou privadas.
+- 📊 **Dashboard:** Área exclusiva para o usuário gerenciar suas tarefas.
+- 💬 **Comentários:** Usuários podem comentar em tarefas públicas.
+- 🔢 **Contagem de Posts e Comentários:** Exibida na página inicial.
+- 💾 **Persistência:** Dados armazenados no Firebase Firestore.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## 📁 Estrutura de Pastas
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+- `src/components/` — Componentes reutilizáveis, como `Header`.
+- `src/pages/` — Páginas principais do app.
+- `src/services/` — Conexão com Firebase e outros serviços.
+- `src/styles/` — Estilos globais e módulos CSS.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+## 🔑 Fluxo de Autenticação
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- O componente `Header` utiliza o hook `useSession` para verificar o status do usuário.
+- Usuário autenticado vê o botão de logout e acesso ao dashboard.
+- Usuário não autenticado vê o botão de login.
 
-## Learn More
+## 📝 Cadastro e Listagem de Tarefas
 
-To learn more about Next.js, take a look at the following resources:
+- Usuário logado pode cadastrar tarefas via formulário no dashboard.
+- Tarefas podem ser públicas (visíveis para todos) ou privadas.
+- Tarefas públicas podem ser acessadas por qualquer usuário e recebem comentários.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+## 💬 Comentários
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Página de tarefa permite que usuários autenticados comentem.
+- Comentários são listados e podem ser editados/deletados pelo autor.
 
-## Deploy on Vercel
+## 🛠️ Tecnologias Utilizadas
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- ⚡ **Next.js** (Pages Router)
+- ⚛️ **React**
+- 🔐 **Next Auth**
+- 🔥 **Firebase Firestore**
+- 🎨 **CSS Modules**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+## 🔧 Variáveis de Ambiente (.env)
+
+### NextAuth
+NEXTAUTH_URL=  
+NEXTAUTH_SECRET=
+
+### Google Auth
+GOOGLE_CLIENT_ID=  
+GOOGLE_CLIENT_SECRET=
+
+### Firebase
+FIREBASE_API_KEY=  
+FIREBASE_AUTH_DOMAIN=  
+FIREBASE_PROJECT_ID=  
+FIREBASE_STORAGE_BUCKET=  
+FIREBASE_MESSAGING_SENDER_ID=  
+FIREBASE_APP_ID=  
+
+## ▶️ Como rodar o projeto com pnpm
+1. Clone o repositório:
+   ```sh
+   git clone https://github.com/marcionavarro/udemypro-nextjs-do-zero-ao-avancado-na-pratica-2025.git
+2. Acesse a pasta tarefas:
+   ```sh
+   cd tarefas
+3. Instale as dependências:
+   ```sh
+   pnpm install ou npm install
+   ```
+4. Inicie o servidor de desenvolvimento:
+   ```sh
+   pnpm dev ou npm run dev
+   ```
+3. Acesse [http://localhost:3000](http://localhost:3000)
+
+---

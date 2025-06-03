@@ -37,7 +37,7 @@ O projeto separa componentes reutilizáveis (como Header) e páginas, facilitand
 1. Clone o repositório:
    ```sh
    git clone https://github.com/marcionavarro/udemypro-nextjs-do-zero-ao-avancado-na-pratica-2025.git
-2. Acesse a pasta aula:
+2. Acesse a pasta aula-2:
    ```sh
    cd aula-2
 3. Instale as dependências:
