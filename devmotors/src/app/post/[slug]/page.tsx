@@ -7,9 +7,12 @@ import { Container } from '@/componentes/Container'
 import Image from 'next/image'
 import { Metadata } from 'next'
 
-export async function generateMetadata({ params }: {
-  params: { slug: string }
-}): Promise<Metadata> {
+export async function generateMetadata(
+  props: {
+    params: Promise<{ slug: string }>
+  }
+): Promise<Metadata> {
+  const params = await props.params;
   try {
     const { objects }: PostProps = await getItemBySlug(params.slug)
       .catch(() => {
@@ -46,9 +49,12 @@ export async function generateMetadata({ params }: {
   }
 }
 
-export default async function Page({ params }: {
-  params: { slug: string }
-}) {
+export default async function Page(
+  props: {
+    params: Promise<{ slug: string }>
+  }
+) {
+  const params = await props.params;
   const { objects }: PostProps = await getItemBySlug(params.slug)
 
   return (
