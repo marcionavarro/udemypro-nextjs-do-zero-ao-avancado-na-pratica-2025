@@ -2,7 +2,7 @@
 
 Este projeto demonstra conceitos fundamentais de React com React Router, utilizando Vite para desenvolvimento rápido.
 
-![alt text](image-1.png)
+![alt text](image.png)
 
 ## Estrutura de Pastas
 
